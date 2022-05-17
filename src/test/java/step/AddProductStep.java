@@ -26,7 +26,6 @@ public class AddProductStep {
     public void userSeeAlertAndClickOk() {
         addProductPage.handleAlert();
 
-
     }
 
     @When("Click cart on menu to navigate cart page")
