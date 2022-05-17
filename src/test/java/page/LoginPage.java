@@ -2,14 +2,12 @@ package page;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
-import org.apache.pdfbox.pdmodel.interactive.form.PDPushButton;
+import net.thucydides.core.annotations.locators.WaitForWebElementCollection;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.security.PublicKey;
-import java.security.cert.X509Certificate;
 
 public class LoginPage extends PageObject {
 
@@ -27,7 +25,7 @@ public class LoginPage extends PageObject {
     WebElement loginButton;
 
     @FindBy(id = "nameofuser")
-    WebElement textUsername;
+    WebElement myUsername;
 
     @FindBy(id = "logout2")
     WebElement logoutButton;
@@ -38,11 +36,12 @@ public class LoginPage extends PageObject {
     @FindBy(xpath = "//a[contains(text(),'Laptops')]")
     WebElement laptopsMenu;
 
-    @FindBy(id = "spanMessage")
-    WebElement errorMessage;
 
 
-
+    @Step
+    public void clearCookie(){
+        getDriver().manage().deleteAllCookies();
+    }
     @Step
     public void clickMenuLogin(){
         loginMenu.click();
@@ -50,8 +49,8 @@ public class LoginPage extends PageObject {
 
     @Step
     public void enterValidUsername(){
-        waitForElement().until(ExpectedConditions.visibilityOf(usernameField)).sendKeys("ways@gmail.com");
-//        usernameField.sendKeys("ways@gmail.com");
+//        waitForElement().until(ExpectedConditions.visibilityOf(usernameField)).sendKeys("ways@gmail.com");
+        usernameField.sendKeys("ways@gmail.com");
 
     }
 
@@ -68,20 +67,17 @@ public class LoginPage extends PageObject {
 
     @Step
     public void validateLogin()   {
-//        waitForElement().until(ExpectedConditions.visibilityOf(logoutButton)).waitUntilVisible();
-
-//        waitForElement().until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
-//        logoutButton.click();
-//        return textUsername.isDisplayed();
-//        cardButton.click();
-
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollBy(0,350)", "");
-
+        waitForElement().until(ExpectedConditions.elementToBeClickable(myUsername)).isDisplayed();
     }
 
     @Step
-    public void clickLaptopsMenu(){
+    public void scrollPage(){
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollBy(0,350)", "");
+    }
+
+    @Step
+    public void clickLaptopsSideMenu(){
         laptopsMenu.click();
     }
     @Step
@@ -89,9 +85,6 @@ public class LoginPage extends PageObject {
         cardButton.click();
     }
 
-    public void validateTextUsername(){
-        textUsername.isDisplayed();
-    }
 
 
 
@@ -103,11 +96,6 @@ public class LoginPage extends PageObject {
     @Step
     public void inputPassword(String password){
         passwordField.sendKeys(password);
-    }
-
-    @Step
-    public boolean errorMessageAppear(){
-        return errorMessage.isDisplayed();
     }
 
 }

@@ -4,7 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
-import page.AddEmployeePage;
 import page.LoginPage;
 
 public class LoginStep {
@@ -15,6 +14,7 @@ public class LoginStep {
 
     @Given("User on login page")
     public void adminOnPage() {
+        loginPage.clearCookie();
         loginPage.open();
     }
 
@@ -34,44 +34,15 @@ public class LoginStep {
         loginPage.clickLoginInForm();
     }
 
-
     @Then("Validate on dashboard")
     public void validateOnDashboard() throws Throwable {
-//        loginPage.validateLogin();
-//        Thread.sleep(3000);
-//        loginPage.clickLaptopsMenu();
-//        Thread.sleep(3000);
-//        loginPage.clickCartMenu();
-        Thread.sleep(3000);
-        loginPage.validateTextUsername();
-        Thread.sleep(3000);
-
-    }
-
-
-
-
-
-
-    @Then("User see quick launch panel on dashboard")
-    public void userSeeQuickLaunchPanelOnDashboard() {
+        Thread.sleep(2000);
         loginPage.validateLogin();
+
+
+
     }
 
-    @When("User enter username and password {string} {string}")
-    public void userEnterUsernameAndPassword(String username, String password) {
-        loginPage.inputUsername(username);
-        loginPage.inputPassword(password);
-    }
-
-    @Then("User see result {string}")
-    public void userSeeResult(String result) {
-        if(result.equals("quick launch panel")){
-            loginPage.validateLogin();
-        }else {
-            loginPage.errorMessageAppear();
-        }
-    }
 
 
 
