@@ -27,14 +27,14 @@ public class LoginPage extends PageObject {
     @FindBy(id = "nameofuser")
     WebElement myUsername;
 
-    @FindBy(id = "logout2")
-    WebElement logoutButton;
-
-    @FindBy(xpath = "//a[@id='cartur']")
-    WebElement cardButton;
-
-    @FindBy(xpath = "//a[contains(text(),'Laptops')]")
-    WebElement laptopsMenu;
+//    @FindBy(id = "logout2")
+//    WebElement logoutButton;
+//
+//    @FindBy(xpath = "//a[@id='cartur']")
+//    WebElement cardButton;
+//
+//    @FindBy(xpath = "//a[contains(text(),'Laptops')]")
+//    WebElement laptopsMenu;
 
 
 
@@ -76,26 +76,28 @@ public class LoginPage extends PageObject {
         js.executeScript("window.scrollBy(0,350)", "");
     }
 
-    @Step
-    public void clickLaptopsSideMenu(){
-        laptopsMenu.click();
-    }
-    @Step
-    public void clickCartMenu(){
-        cardButton.click();
-    }
 
 
 
 
 
-    @Step
-    public void inputUsername(String username){
-        usernameField.sendKeys(username);
-    }
-    @Step
-    public void inputPassword(String password){
-        passwordField.sendKeys(password);
-    }
+//    @Step
+//    public void clickLaptopsSideMenu(){
+//        laptopsMenu.click();
+//    }
+//    @Step
+//    public void clickCartMenu(){
+//        cardButton.click();
+//    }
+//
+//
+//    @Step
+//    public void inputUsername(String username){
+//        usernameField.sendKeys(username);
+//    }
+//    @Step
+//    public void inputPassword(String password){
+//        passwordField.sendKeys(password);
+//    }
 
 }
