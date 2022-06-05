@@ -23,8 +23,8 @@ public class LoginStep {
         loginPage.clickMenuLogin();
     }
 
-    @When("User enter username and password")
-    public void userEnterUsernameAndPassword()  {
+    @When("User fill username and password")
+    public void userFillUsernameAndPassword() {
         loginPage.enterValidUsername();
         loginPage.enterValidPassword();
     }
@@ -38,12 +38,23 @@ public class LoginStep {
     public void validateOnDashboard() throws Throwable {
         Thread.sleep(2000);
         loginPage.validateLogin();
-
-
-
     }
 
+    @When("^User enter username (.*)$")
+    public void userEnterUsername(String username) {
+        loginPage.inputUsername(username);
+    }
 
+    @When("^User enter password (.*)$")
+    public void userEnterPassword(String password) {
+        loginPage.inputPassword(password);
+    }
+
+    @Then("^Validate on login page (.*)$")
+    public void validateOnDashboardResult(String result) throws InterruptedException{
+        Thread.sleep(2000);
+        loginPage.validateScenarioLogin(result);
+    }
 
 
 }

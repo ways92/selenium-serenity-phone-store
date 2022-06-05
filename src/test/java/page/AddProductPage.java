@@ -48,7 +48,6 @@ public class AddProductPage extends PageObject {
             getDriver().switchTo().alert().accept();
         } catch (UnhandledAlertException u) {
             u.printStackTrace();
-//            System.out.println("Alert not found");
         }
     }
 
@@ -60,8 +59,9 @@ public class AddProductPage extends PageObject {
     }
 
     @Step
-    public void validateProduct(){
+    public void validateProduct() throws InterruptedException {
         waitForElement().until(ExpectedConditions.visibilityOf(productAppear)).waitUntilVisible();
+        Thread.sleep(2000);
         deleteButton.click();
     }
 

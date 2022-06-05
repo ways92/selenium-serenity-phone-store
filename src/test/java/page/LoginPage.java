@@ -1,10 +1,10 @@
 package page;
 
 import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.locators.WaitForWebElementCollection;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -49,7 +49,6 @@ public class LoginPage extends PageObject {
 
     @Step
     public void enterValidUsername(){
-//        waitForElement().until(ExpectedConditions.visibilityOf(usernameField)).sendKeys("ways@gmail.com");
         usernameField.sendKeys("ways@gmail.com");
 
     }
@@ -66,8 +65,55 @@ public class LoginPage extends PageObject {
     }
 
     @Step
-    public void validateLogin()   {
-        waitForElement().until(ExpectedConditions.elementToBeClickable(myUsername)).isDisplayed();
+    public boolean validateLogin()   {
+         return waitForElement().until(ExpectedConditions.visibilityOf(myUsername)).isDisplayed();
+    }
+
+    @Step
+    public void inputUsername(String username){
+        usernameField.sendKeys(username);
+    }
+    @Step
+    public void inputPassword(String password){
+        passwordField.sendKeys(password);
+    }
+
+    @Step
+    public void validateScenarioLogin(String result) throws InterruptedException {
+        if (result.equals("dashboard")){
+            try {
+                waitForElement().until(ExpectedConditions.visibilityOf(myUsername)).isDisplayed();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }else {
+
+            waitForCondition().until(ExpectedConditions.alertIsPresent());
+            Alert modalAlert = getDriver().switchTo().alert();
+            String textAlert = modalAlert.getText();
+
+            System.out.println(textAlert);
+            if (result.equals("error")){
+                Assert.assertEquals(textAlert, "Please fill out Username and Password.");
+
+            }
+            if (result.equals("not exist")){
+                Assert.assertEquals(textAlert, "User does not exist.");
+
+            }
+            if (result.equals("wrong pass")){
+                Assert.assertEquals(textAlert, "Wrong password.");
+
+            }
+           else {
+                System.out.println("error login.....");
+            }
+
+            modalAlert.accept();
+        }
+
+
     }
 
     @Step
@@ -91,13 +137,6 @@ public class LoginPage extends PageObject {
 //    }
 //
 //
-//    @Step
-//    public void inputUsername(String username){
-//        usernameField.sendKeys(username);
-//    }
-//    @Step
-//    public void inputPassword(String password){
-//        passwordField.sendKeys(password);
-//    }
+
 
 }
